@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bone Vision AI | Medical Diagnostics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Navigation Bar for Professional Look -->
+    <nav class="topbar">
+        <div class="logo-container">
+            <svg class="med-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+            <span class="logo-text">Bone Vision AI</span>
+        </div>
+        <div class="user-profile">
+            <span class="badge">Diagnostic Workspace</span>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <header class="page-header text-center">
+            <h1>Bone X-Ray Diagnostic Analysis</h1>
+            <p class="text-muted">Upload bone X-Ray scans for automated Grad-CAM analysis and immediate clinical recommendations.</p>
+        </header>
+
+        <section class="upload-section" id="uploadArea">
+            <!-- Center Dropzone -->
+            <div class="panel upload-panel centered-panel">
+                <div class="drop-zone" id="dropZone">
+                    <div class="icon-container">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                    </div>
+                    <h3>Upload X-Ray Scan</h3>
+                    <p class="text-muted">Drag & drop or click to browse</p>
+                    <p class="text-sm">Supported formats: JPEG, PNG</p>
+                    <input type="file" id="fileInput" accept="image/jpeg, image/png, image/jpg" hidden>
+                </div>
+                
+                <div class="preview-container hidden" id="previewContainer">
+                    <img id="imagePreview" src="" alt="Scan Preview">
+                    <div class="action-buttons">
+                        <button class="btn btn-outline" id="resetBtn">Return</button>
+                        <button class="btn btn-primary" id="analyzeBtn">Run Diagnostic Report</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading State -->
+        <section class="loading-state hidden panel centered-panel" id="loadingState">
+            <div class="spinner"></div>
+            <h3>Processing X-Ray...</h3>
+            <p class="text-muted">Running Deep Learning Inference & compiling Grad-CAM activation maps.</p>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section hidden" id="resultsSection">
+            <div class="results-header">
+                <h2>Diagnostic Report</h2>
+                <div class="report-actions">
+                    <button class="btn btn-outline" onclick="location.reload()">Process New X-Ray</button>
+                    <button class="btn btn-primary" onclick="window.print()">Print / Save PDF</button>
+                </div>
+            </div>
+
+            <div class="results-grid">
+                <!-- Col 1: Images -->
+                <div class="panel images-panel">
+                    <div class="images-comparison">
+                        <div class="image-box">
+                            <h4>Original X-Ray</h4>
+                            <img id="resultOriginalImage" src="" alt="Original">
+                        </div>
+                        <div class="image-box">
+                            <h4>Analyzed Image (Grad-CAM Annotations)</h4>
+                            <img id="resultCamImage" src="" alt="Grad-CAM Overlay">
+                        </div>
+                    </div>
+                    <p class="text-sm text-muted mt-4 text-center">Highlighted heatmap indicating the regions contributing to the AI's clinical prediction.</p>
+                </div>
+                
+                <!-- Col 2: Diagnostics & Advice -->
+                <div class="diagnostic-sidebar">
+                    <div class="panel diagnosis-card">
+                        <h4>AI Inference Result</h4>
+                        <div class="prediction-block mt-2">
+                            <h2 id="predictionClass" class="status-badge">Analyzing...</h2>
+                        </div>
+                        
+                        <div class="confidence-meter mt-4">
+                            <div class="flex-between">
+                                <span class="text-sm font-medium">Confidence Score</span>
+                                <span id="confidenceText" class="text-sm font-bold">0%</span>
+                            </div>
+                            <div class="progress-bar mt-2">
+                                <div class="progress-fill" id="confidenceFill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel advice-card mt-4">
+                        <h4>Immediate Recommendations</h4>
+                        <ul class="advice-list mt-2" id="adviceList">
+                            <!-- Populated via JS -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
