@@ -9,6 +9,9 @@ This project is an AI-powered Bone Cancer Detection System that analyzes bone X-
 
 The system uses a ResNet50 deep learning model trained on bone X-ray images and provides visual explanations using Grad-CAM.
 
+<img width="1280" height="583" alt="image" src="https://github.com/user-attachments/assets/d8e431fb-9a69-4b74-8b6f-5dd2e252c9d7" />
+
+
 ---
 
 ## Features
